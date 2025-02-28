@@ -1,0 +1,25 @@
+/* site.css */
+
+/* Basic styling with Hebrew (RTL) support */
+body {
+  font-family: Arial, sans-serif;
+  direction: rtl;
+  background-color: #f8f9fa;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #333;
+}
+
+/* Custom styling for the navigation brand */
+.navbar-brand {
+  font-weight: bold;
+}
+
+/* Footer styling */
+footer {
+  font-size: 0.9rem;
+  color: #555;
+}

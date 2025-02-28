@@ -1,0 +1,5 @@
+# _config.yml
+theme: jekyll-theme-minimal
+title: "הוראת מתמטיקה"
+description: "אתר דמה ללימוד מתמטיקה"
+lang: he
