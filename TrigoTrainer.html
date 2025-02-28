@@ -407,27 +407,25 @@ border: 1px solid #000;
       }
 
       async function sendResultsToTelegram(results, name) {
-    return;
-    try {
-        const message = `${results}\n${new Date().toLocaleString()}\n${name}\n${tm}, ${td}, ${timetaken}`;
-        const botToken = '526393:MY_KEY'; // Replace with your token
-        const chatId = '625661528';
-        const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              chat_id: chatId,
-              text: message,
-              parse_mode: 'Markdown'
-            }),
-        });
-        console.log("Results sent successfully");
-    } catch (error) {
-        console.error("Failed to send results:", error);
+        try {
+            const message = `${results}\n${new Date().toLocaleString()}\n${name}\n${tm}, ${td}, ${timetaken}`;
+            
+            const response = await fetch("https://super-term-2809.3strategy.workers.dev/", { 
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message })
+            });
+
+            if (response.ok) {
+                console.log("Results sent successfully");
+            } else {
+                console.error("Failed to send results:", await response.text());
+            }
+        } catch (error) {
+            console.error("Failed to send results:", error);
+        }
     }
-}
+
 
 
       document.getElementById("restart-btn").addEventListener("click", function() {
