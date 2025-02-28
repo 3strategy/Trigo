@@ -113,14 +113,14 @@ border: 1px solid #000;
 <body>
   <h1>Triangle Trainer</h1>
 
-  <div class="device-toggle">
+  <!-- <div class="device-toggle">
     <label>
       <input type="radio" name="device" value="desktop" checked> Desktop
     </label>
     <label>
       <input type="radio" name="device" value="mobile"> Mobile
     </label>
-  </div>
+  </div> -->
 
   <input type="text" id="name-input" placeholder="Enter your name (optional)">
 
@@ -178,7 +178,7 @@ border: 1px solid #000;
 
       // Set up canvas dimensions
       function setupCanvas() {
-        let maxx = mobileMode ? 250 : 700;
+        let maxx = mobileMode ? 250 : 600;
         let maxy = mobileMode ? 350 : 500;
         canvas.width = maxx + 10;
 		statusMessage.style.width = maxx +10+"px";
@@ -218,8 +218,8 @@ border: 1px solid #000;
       }
 
       function writeText(x, y, text, color = cblue) {
-        const fontSize = mobileMode ? 15 : 30;
-        const fontStyle = mobileMode ? 'normal' : 'italic';
+        const fontSize = mobileMode ? 48 : 50;
+        const fontStyle = mobileMode ? 'italic' : 'italic';
         ctx.font = `${fontStyle} ${fontSize}px Arial`;
         ctx.fillStyle = color;
         ctx.fillText(text, x, y);
@@ -301,9 +301,9 @@ border: 1px solid #000;
         drawLine(Q_x, Q_y, R_x, R_y, cred);
 
         // Second edge
-        const mx2 = mx + dy;
-        const my2 = my - dx;
-        if (mx2 >= 10 && my2 >= 10 && mx2 <= maxx && my2 <= maxy) {
+        const mx2 = mx + newDy;
+        const my2 = my - newDx;
+        if (mx2 >= 10 && my2 >= 10 && mx2 <= maxx-20 && my2 <= maxy-20) {
           drawLine(mx, my, mx2, my2);
           if (sinn === 1) {
             xb = mx2;
@@ -312,7 +312,7 @@ border: 1px solid #000;
           const x1 = 0.5 * (ox + mx2);
           const y1 = 0.5 * (oy + my2);
           drawLine(ox, oy, mx2, my2);
-          writeText(xb, yb, 'β', cred);
+          writeText(xb, yb, 'β', cgreen);
           writeText(x0, y0, xora[0], cred);
           writeText(x1, y1, xora[1], cred);
           // Determine correct answer
