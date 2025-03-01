@@ -1,22 +1,9 @@
 ---
 ---
 
-@import "jekyll-theme-midnight";
+@import "{{ site.theme }}";
 
-.nav{
-    width: 90%;
-}
-.nav ul{
-    display: flex;
-}
-// body {
-//     font-family: Arial, sans-serif;
-//     display: flex;
-//     flex-direction: column;
-//     align-items: center;
-//     padding: 20px;
-//     background-color: #f0f0f0;
-// }
+
 .italic {
     font-style: italic;
 }

@@ -1,8 +1,23 @@
-theme: jekyll-theme-midnight
-remote_theme: pages-themes/midnight@v0.2.0
+remote_theme: vaibhavvikas/jekyll-theme-minimalistic
 plugins:
-- jekyll-remote-theme # add this line to the plugins list if you already have one
+  - jekyll-remote-theme
 title: "מתמטיקה עם גיא"
 show_downloads: false
 description: "אתר עזרי לימוד מתמטיקה של גיא"
 lang: he
+color-scheme: auto
+
+navigation:
+  - name: Home
+    link: ./index.html
+    sublist:
+      - name: Image
+        link: ./index.html#small-image
+      - name: Other2
+        link: ./another-page2.html
+  - name: 571
+    link: ./571.pdf
+  - name: Trigo
+    link: ./TrigotTrainer.html
+  - name: anotherP
+    link: ./another-page.html
