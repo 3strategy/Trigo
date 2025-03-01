@@ -38,12 +38,12 @@ canvas {
 }
 #status-message {
 
-    font-size: 34px;
+    font-size: 2rem;
     font-weight: bold;
     text-align:center;
-border: 1px solid #000;
+    border: 1px solid #000;
     height: 30px;
-    color: #333;
+    color: #daa;
     background-color:#000;
 }
 #results {
@@ -57,7 +57,8 @@ border: 1px solid #000;
 }
 #result-text {
     white-space: pre-line;
-    font-size: 16px;
+    color:greenyellow;
+    font-size: 1.3em;
 }
 .device-toggle {
     margin-bottom: 20px;
