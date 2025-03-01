@@ -1,0 +1,11 @@
+main:
+  - title: "Home"
+    url: index.html
+  - title: "Trigo"
+    url: trigotrainer.html
+  - title: "571"
+    url: 571.pdf
+  - title: "another"
+    url: ./another-page.html
+  - title: "another2"
+    url: another-page2.html
