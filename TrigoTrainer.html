@@ -76,36 +76,17 @@ title: Trigo Trainer
       const cblack = 'black';
       const cgreen = 'lightgreen';
 
-      // Helper to draw a small circle and optional label
-      function drawPoint(x, y, color, label) {
-        ctx.beginPath();
-        ctx.arc(x, y, 5, 0, 2 * Math.PI);
-        ctx.fillStyle = color;
-        ctx.fill();
-        if (label) {
-          ctx.font = "20px Arial";
-          ctx.fillText(label, x + 8, y + 8);
-        }
-      }
-
       // Set up canvas dimensions
       function setupCanvas() {
         let maxx = mobileMode ? 250 : 600;
         let maxy = mobileMode ? 350 : 500;
-
-        // We'll define these actual canvas dimensions
-        const canvasWidth = maxx + 10;
-        const canvasHeight = maxy + 10;
-
-        canvas.width = canvasWidth;
-        canvas.height = canvasHeight;
-
-        statusMessage.style.width = canvasWidth + "px";
-        statusMessage.style.height = "70px";
-
-        canvasContainer.style.width = canvasWidth + "px";
-        canvasContainer.style.height = canvasHeight + "px";
-
+        canvas.width = maxx + 10;
+		statusMessage.style.width = maxx +10+"px";
+		statusMessage.style.height = 70+"px";
+		
+        canvas.height = maxy + 10;
+        canvasContainer.style.width = canvas.width + "px";
+        canvasContainer.style.height = canvas.height + "px";
         // Set background color
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -151,24 +132,17 @@ title: Trigo Trainer
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // The actual canvas dimensions
-        const canvasWidth = canvas.width;
-        const canvasHeight = canvas.height;
-
-        // Plot (5,5) in magenta
-        drawPoint(5, 5, "magenta", "(5,5)");
-        // Plot (canvasWidth-5, canvasHeight-5) in orange
-        drawPoint(canvasWidth - 5, canvasHeight - 5, "orange", "(w-5,h-5)");
-
         // Set parameters
         const sinn = Math.random() > 0.5 ? 1 : 0;
         const is_division = Math.random() > 0.5 ? 1 : 0;
         const sc = mobileMode ? 0.4 : 1;
         const xora = is_division === 0 ? ['a', 'x?'] : ['x?', 'a'];
 
-        // We'll define the center based on the actual canvas dimension
-        const centerX = canvasWidth / 2;
-        const centerY = canvasHeight / 2;
+        // Canvas center and drawing area dimensions
+        const maxx = mobileMode ? 250 : 700;
+        const maxy = mobileMode ? 250 : 500;
+        const centerX = maxx / 2;
+        const centerY = maxy / 2;
 
         // Generate random parameters for the triangle’s shape
         let dx = (sc * 90 + (Math.random() - 0.5) * sc * 140) * (Math.random() > 0.5 ? -1 : 1);
@@ -178,11 +152,13 @@ title: Trigo Trainer
         const ratio = (0.55 + 0.25 * Math.random()) * (Math.random() > 0.5 ? -1 : 1);
 
         // Compute the three vertices BEFORE centering:
+        // Let A = (ox, oy) where initially we set:
         let A_x = centerX - 0.5 * dx;
         let A_y = centerY - 0.5 * dy;
+        // B = A + (dx, dy)
         let B_x = A_x + dx;
         let B_y = A_y + dy;
-
+        // C = B + (newDy, -newDx) where newDx = dx*ratio and newDy = dy*ratio
         const newDx = dx * ratio;
         const newDy = dy * ratio;
         let C_x = B_x + newDy;
@@ -192,31 +168,46 @@ title: Trigo Trainer
         const centroid_x = (A_x + B_x + C_x) / 3;
         const centroid_y = (A_y + B_y + C_y) / 3;
 
-        // Shift everything so the centroid is exactly at (centerX, centerY)
+        // Compute delta to shift centroid to canvas center
         const delta_x = centerX - centroid_x;
         const delta_y = centerY - centroid_y;
+
+        // Shift all vertices by delta
         A_x += delta_x; A_y += delta_y;
         B_x += delta_x; B_y += delta_y;
         C_x += delta_x; C_y += delta_y;
 
-        // Draw the edges
+        // Compute midpoints for labeling
+        const x0 = (A_x + B_x) / 2; // midpoint of AB
+        const y0 = (A_y + B_y) / 2;
+        const x1 = (A_x + C_x) / 2; // midpoint of AC
+        const y1 = (A_y + C_y) / 2;
+
+        // Draw the triangle edges
         drawLine(A_x, A_y, B_x, B_y);
         drawLine(B_x, B_y, C_x, C_y);
         drawLine(A_x, A_y, C_x, C_y);
 
-        // Right-angle marker at B
+        // Draw right-angle marker at vertex B.
+        // The right angle is at B (B is computed as A+B).
+        // Compute unit vectors along BA and BC.
         const L = Math.sqrt(dx*dx + dy*dy);
         const k = sc * 20 / (L || 1);
-        const u1x = -dx / L, u1y = -dy / L;  // B->A direction
+        // Vector from B to A is (-dx, -dy)
+        const u1x = -dx / L, u1y = -dy / L;
+        // Vector from B to C is (C_x - B_x, C_y - B_y).
+        // But note: originally C was computed as B + (newDy, -newDx) so its vector is (newDy, -newDx).
         const BC_length = Math.sqrt(newDx*newDx + newDy*newDy);
         const u2x = newDy / (BC_length || 1), u2y = -newDx / (BC_length || 1);
+        // Marker endpoints:
         const P_x = B_x + k * u1x;
         const P_y = B_y + k * u1y;
         const Q_x = B_x + k * u2x;
         const Q_y = B_y + k * u2y;
+        // Draw an L-shaped marker by drawing a line from P to Q.
         drawLine(P_x, P_y, Q_x, Q_y, cred);
 
-        // Label β at either A or C
+        // Determine where to place the β label.
         let xb, yb;
         if (sinn === 0) {
           xb = A_x;
@@ -225,12 +216,7 @@ title: Trigo Trainer
           xb = C_x;
           yb = C_y;
         }
-        // Midpoints for labeling
-        const x0 = (A_x + B_x) / 2;
-        const y0 = (A_y + B_y) / 2;
-        const x1 = (A_x + C_x) / 2;
-        const y1 = (A_y + C_y) / 2;
-
+        // Write labels
         writeText(xb, yb, 'β', cgreen);
         writeText(x0, y0, xora[0], cred);
         writeText(x1, y1, xora[1], cred);
@@ -246,7 +232,15 @@ title: Trigo Trainer
         starttime = performance.now();
       }
 
-      // Handling the user answer
+      // Handle button clicks
+      document.querySelectorAll('.btn').forEach(function(button) {
+        button.addEventListener('click', function() {
+          if (!flag) return;
+          const value = parseInt(this.getAttribute('data-value') || '0');
+          handleAnswer(value);
+        });
+      });
+
       function handleAnswer(ans) {
         if (!flag) return;
         const correct = parseInt(canvas.dataset.correctAnswer || '0');
@@ -338,9 +332,9 @@ title: Trigo Trainer
         total = 0;
         counter = 0;
         timetaken = 0;
-        c1 = 0; c2 = 0; c11 = 0; c22 = 0;
-        t1 = 0; t2 = 0; t11 = 0; t22 = 0;
-        tm = 0; td = 0;
+        c1 = c2 = c11 = c22 = 0;
+        t1 = t2 = t11 = t22 = 0;
+        tm = td = 0;
         resultsDiv.classList.add("hidden");
         triangle1();
       });
