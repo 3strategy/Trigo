@@ -3,8 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-{% seo %}
+    {% seo %}
     <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
     <script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
     <script src="{{ '/assets/js/respond.js' | relative_url }}"></script>
@@ -12,50 +11,66 @@
       <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <!--[if lt IE 8]>
-    <link rel="stylesheet" href="{{ '/assets/css/ie.css' | relative_url }}">
+      <link rel="stylesheet" href="{{ '/assets/css/ie.css' | relative_url }}">
     <![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     {% include head-custom.html %}
   </head>
   <body>
-      <div id="header">
-        <nav class="nav">
-          <ul>
-            <!-- <li class="fork"><a href="{{ site.github.repository_url }}">View On GitHub</a></li> -->
-            <li class="fork"><a href="index.html">Home</a></li>
-            <li class="fork"><a href="TrigoTrainer.html">Trigo</a></li>
-            <!--inside content1 you have an embedded example of pdf <li class="fork"><a href="content1.html">571-1</a></li> -->
-            <!--content2 has it served with html on the title but raw PDF displayed. <li class="fork"><a href="content2.html">571-2</a></li> -->
-            <!--content3 goes to 404 <li class="fork"><a href="content3.html">571-3</a></li> -->
-            <li class="fork"><a href="another-page.html">another-page</a></li>
-            <!-- this one below 571.pdf makes the most sense since there's not html involved and the uri shows 571.pdf -->
-            <!-- only after several attempts and a long wait it did open on the phone's browser (i.e. no xodo or 3rd party) -->
-            <!-- and phone caching seems fine -->
-            <li class="fork"><a href="571.pdf">571pdf</a></li>
-            {% if site.show_downloads %}
-              <!-- <li class="downloads"><a href="571.pdf">571-5</a></li> -->
-
-              <li class="title">DOWNLOADS</li>
-            {% endif %}
-          </ul>
-        </nav>
-      </div><!-- end header -->
+    <div id="header">
+      <!-- Navigation updated with toggle and nested menus -->
+      <nav class="nav">
+        <button id="menu-toggle">Menu</button>
+        <ul class="menu">
+          <li><a href="index.html">Home</a></li>
+          <li class="has-submenu">
+            <a href="#">Trigo</a>
+            <ul class="submenu">
+              <li><a href="TrigoTrainer.html">Trigo Trainer</a></li>
+              <li><a href="TrigoInfo.html">Trigo Info</a></li>
+            </ul>
+          </li>
+          <li><a href="another-page.html">Another Page</a></li>
+          <li><a href="571.pdf">571pdf</a></li>
+          {% if site.show_downloads %}
+            <li class="title">DOWNLOADS</li>
+          {% endif %}
+        </ul>
+      </nav>
+    </div><!-- end header -->
 
     <div class="wrapper">
-
       <section>
         <div id="title">
           <h1>{{ site.title | default: site.github.repository_name }}</h1>
-          <!-- <p>{{ site.description | default: site.github.project_tagline }}</p> -->
-          <!-- <hr> -->
-          <!-- <span class="credits left">Project maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/mattgraham">mattgraham</a></span> -->
         </div>
-
         {{ content }}
-
       </section>
-
     </div>
+    
+    <!-- jQuery for menu toggling -->
+    <script>
+      $(document).ready(function() {
+        // Toggle main menu on mobile
+        $('#menu-toggle').click(function() {
+          $('.menu').slideToggle();
+        });
+        
+        // Toggle submenu on mobile
+        $('.has-submenu > a').click(function(e) {
+          if ($(window).width() < 768) {
+            e.preventDefault();
+            $(this).siblings('.submenu').slideToggle();
+          }
+        });
+        
+        // Adjust inline styles when resizing
+        $(window).resize(function() {
+          if ($(window).width() >= 768) {
+            $('.menu, .submenu').removeAttr('style');
+          }
+        });
+      });
+    </script>
   </body>
 </html>

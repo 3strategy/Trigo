@@ -6,17 +6,8 @@
 .nav{
     width: 90%;
 }
-.nav ul{
-    display: flex;
-}
-// body {
-//     font-family: Arial, sans-serif;
-//     display: flex;
-//     flex-direction: column;
-//     align-items: center;
-//     padding: 20px;
-//     background-color: #f0f0f0;
-// }
+
+
 .italic {
     font-style: italic;
 }
@@ -105,4 +96,63 @@ button:hover {
 /* Increase the size of MathJax output */
 .MathJax {
     font-size: 180% !important;
+}
+
+
+/* menu system GPT o3-mini-high*/
+// Base styles for the menu and submenu
+.menu,
+.submenu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu li {
+  position: relative;
+}
+
+/* Hide submenus by default */
+.submenu {
+  display: none;
+  position: absolute;
+  background-color: #000; // or match your theme colors
+  padding: 10px;
+  z-index: 1000;
+}
+
+/* Show submenu on hover for desktop */
+.has-submenu:hover .submenu {
+  display: block;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  #menu-toggle {
+    display: block;
+    background: #444;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: left;
+  }
+  
+  /* Hide the menu by default on mobile */
+  .menu {
+    display: none;
+  }
+  
+  /* Remove absolute positioning for submenus on mobile */
+  .submenu {
+    position: static;
+    padding-left: 15px;
+  }
+  
+  /* Optionally, add an indicator for submenu items */
+  .has-submenu > a:after {
+    content: " ▼";
+    font-size: 0.8em;
+  }
 }
