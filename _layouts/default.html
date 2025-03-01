@@ -24,7 +24,10 @@
         <ul class="menu">
           <li><a href="index.html">Home</a></li>
           <li class="has-submenu">
-            <a href="#">Trigo</a>
+            <!-- Parent link remains clickable -->
+            <a href="TrigoPage.html">Trigo</a>
+            <!-- Separate toggle button for mobile -->
+            <button class="submenu-toggle" aria-label="Toggle submenu">▼</button>
             <ul class="submenu">
               <li><a href="TrigoTrainer.html">Trigo Trainer</a></li>
               <li><a href="TrigoInfo.html">Trigo Info</a></li>
@@ -51,20 +54,20 @@
     <!-- jQuery for menu toggling -->
     <script>
       $(document).ready(function() {
-        // Toggle main menu on mobile
+        // Toggle the main menu on mobile
         $('#menu-toggle').click(function() {
           $('.menu').slideToggle();
         });
         
-        // Toggle submenu on mobile
-        $('.has-submenu > a').click(function(e) {
+        // Toggle submenu when the submenu toggle button is clicked
+        $('.submenu-toggle').click(function(e) {
           if ($(window).width() < 768) {
-            e.preventDefault();
+            e.preventDefault();  // Prevent any accidental form submission or navigation
             $(this).siblings('.submenu').slideToggle();
           }
         });
         
-        // Adjust inline styles when resizing
+        // Clear inline styles when resizing (desktop mode)
         $(window).resize(function() {
           if ($(window).width() >= 768) {
             $('.menu, .submenu').removeAttr('style');

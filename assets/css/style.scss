@@ -100,7 +100,7 @@ button:hover {
 
 
 /* menu system GPT o3-mini-high*/
-// Base styles for the menu and submenu
+/* Base Styles for the menu */
 .menu,
 .submenu {
   list-style: none;
@@ -112,22 +112,28 @@ button:hover {
   position: relative;
 }
 
-/* Hide submenus by default */
+/* By default, hide the submenu (this can be overridden on hover/interaction) */
 .submenu {
   display: none;
-  position: absolute;
-  background-color: #000; // or match your theme colors
-  padding: 10px;
-  z-index: 1000;
 }
 
-/* Show submenu on hover for desktop */
-.has-submenu:hover .submenu {
-  display: block;
+/* Media Query Overrides */
+
+/* Desktop Styles */
+@media (min-width: 769px) {
+  /* Display submenu on hover */
+  .has-submenu:hover .submenu {
+    display: block;
+  }
+  /* Hide the submenu toggle button on desktop */
+  .submenu-toggle {
+    display: none;
+  }
 }
 
 /* Mobile Styles */
 @media (max-width: 768px) {
+  /* Style for the main menu toggle button */
   #menu-toggle {
     display: block;
     background: #444;
@@ -139,20 +145,24 @@ button:hover {
     text-align: left;
   }
   
-  /* Hide the menu by default on mobile */
+  /* Hide the main menu by default on mobile */
   .menu {
     display: none;
   }
   
-  /* Remove absolute positioning for submenus on mobile */
+  /* Make submenus flow in the document */
   .submenu {
     position: static;
     padding-left: 15px;
   }
   
-  /* Optionally, add an indicator for submenu items */
-  .has-submenu > a:after {
-    content: " ▼";
-    font-size: 0.8em;
+  /* Style for the submenu toggle button */
+  .submenu-toggle {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1em;
+    padding: 5px;
+    cursor: pointer;
   }
 }
