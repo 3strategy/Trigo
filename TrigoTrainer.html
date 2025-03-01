@@ -22,12 +22,18 @@ title: Trigo Trainer
     </label>
   </div> -->
 
-  <!-- Added position:relative so that the results div can be absolutely positioned relative to it -->
+  <!-- canvas container remains relative -->
   <div id="canvas-container" style="position: relative;">
     <canvas id="canvas"></canvas>
+    <!-- Status message: centered both horizontally and vertically over the canvas -->
+    <div id="status-message" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
+    <!-- Results div: anchored to the left edge and vertically centered -->
+    <div id="results" class="hidden" style="position: absolute; top: 50%; left: 0; transform: translateY(-50%);">
+      <h2>Results</h2>
+      <div id="result-text"></div>
+      <button id="restart-btn" class="btn" style="margin-top: 15px; background-color: #0f9d58;">Restart</button>
+    </div>
   </div>
-
-  <div id="status-message"></div>
 
   <div id="answer-buttons" class="math-button">
     <button class="btn" data-value="1">\[a\sin\beta\]</button>
@@ -39,20 +45,13 @@ title: Trigo Trainer
     <button class="btn" data-value="9" style="background-color: #db4437;">Finish</button>
   </div>
 
-  <!-- Results div is now absolutely positioned over the canvas and centered -->
-  <div id="results" class="hidden" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
-    <h2>Results</h2>
-    <div id="result-text"></div>
-    <button id="restart-btn" class="btn" style="margin-top: 15px; background-color: #0f9d58;">Restart</button>
-  </div>
-
   <script>
     window.onload = function() {
       MathJax.typeset();
     }
 
     document.addEventListener("DOMContentLoaded", function() {
-      // Automatically detect mobile using matchMedia
+      // Auto-detect mobile via matchMedia
       let mobileMode = window.matchMedia("(max-width: 600px)").matches;
 
       // Canvas setup
@@ -83,11 +82,11 @@ title: Trigo Trainer
       // Set up canvas dimensions
       function setupCanvas() {
         let maxx = mobileMode ? 337 : 700;
-        let maxy = mobileMode ? 450 : 500;
-        canvas.width = maxx + 0;
-        statusMessage.style.width = (maxx + 0) + "px";
+        let maxy = mobileMode ? 400 : 500;
+        canvas.width = maxx;
+        canvas.height = maxy;
+        statusMessage.style.width = maxx + "px";
         statusMessage.style.height = "70px";
-        canvas.height = maxy + 0;
         canvasContainer.style.width = canvas.width + "px";
         canvasContainer.style.height = canvas.height + "px";
         // Set background color
@@ -95,19 +94,18 @@ title: Trigo Trainer
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
 
-      // (Device toggle code is still present but commented out)
+      // (Device toggle code remains commented out)
       // const deviceRadios = document.querySelectorAll('input[name="device"]');
       // deviceRadios.forEach(function(radio) {
       //   radio.addEventListener("change", function(e) {
       //     mobileMode = e.target.value === 'mobile';
       //     setupCanvas();
       //     if (flag) {
-      //       setTimeout(triangle1, 100); // Redraw triangle with new dimensions
+      //       setTimeout(triangle1, 100);
       //     }
       //   });
       // });
 
-      // Initialize
       setupCanvas();
 
       // Helper functions
@@ -131,30 +129,26 @@ title: Trigo Trainer
       // Main triangle drawing function with centering
       function triangle1() {
         if (!flag) return;
-        // Clear canvas
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Use actual canvas dimensions for center
         const canvasWidth = canvas.width;
         const canvasHeight = canvas.height;
         const centerX = canvasWidth / 2;
         const centerY = canvasHeight / 2;
 
-        // Set parameters
         const sinn = Math.random() > 0.5 ? 1 : 0;
         const is_division = Math.random() > 0.5 ? 1 : 0;
         const sc = mobileMode ? 0.4 : 1;
         const xora = is_division === 0 ? ['a', 'x?'] : ['x?', 'a'];
 
-        // Generate random parameters for the triangle’s shape
         let dx = (sc * 90 + (Math.random() - 0.5) * sc * 140) * (Math.random() > 0.5 ? -1 : 1);
         let l1 = Math.pow(Math.min(centerX, centerY) * 1.2, 2);
         if (sc !== 1) l1 *= 0.7;
         let dy = Math.sqrt(Math.max(l1 - dx * dx, 0)) * (Math.random() > 0.5 ? -1 : 1);
         const ratio = (0.55 + 0.25 * Math.random()) * (Math.random() > 0.5 ? -1 : 1);
 
-        // Compute the three vertices BEFORE centering:
+        // Compute vertices BEFORE centering
         let A_x = centerX - 0.5 * dx;
         let A_y = centerY - 0.5 * dy;
         let B_x = A_x + dx;
@@ -164,29 +158,25 @@ title: Trigo Trainer
         let C_x = B_x + newDy;
         let C_y = B_y - newDx;
 
-        // Compute centroid of triangle (A, B, C)
+        // Compute centroid
         const centroid_x = (A_x + B_x + C_x) / 3;
         const centroid_y = (A_y + B_y + C_y) / 3;
 
-        // Shift all vertices so centroid equals canvas center
         const delta_x = centerX - centroid_x;
         const delta_y = centerY - centroid_y;
         A_x += delta_x; A_y += delta_y;
         B_x += delta_x; B_y += delta_y;
         C_x += delta_x; C_y += delta_y;
 
-        // Compute midpoints for labeling
         const x0 = (A_x + B_x) / 2;
         const y0 = (A_y + B_y) / 2;
         const x1 = (A_x + C_x) / 2;
         const y1 = (A_y + C_y) / 2;
 
-        // Draw the triangle edges
         drawLine(A_x, A_y, B_x, B_y);
         drawLine(B_x, B_y, C_x, C_y);
         drawLine(A_x, A_y, C_x, C_y);
 
-        // Draw right-angle marker at vertex B.
         const L = Math.sqrt(dx * dx + dy * dy);
         const k = sc * 20 / (L || 1);
         const u1x = -dx / L, u1y = -dy / L;
@@ -198,7 +188,6 @@ title: Trigo Trainer
         const Q_y = B_y + k * u2y;
         drawLine(P_x, P_y, Q_x, Q_y, cred);
 
-        // Determine where to place the β label.
         let xb, yb;
         if (sinn === 0) {
           xb = A_x;
@@ -211,7 +200,6 @@ title: Trigo Trainer
         writeText(x0, y0, xora[0], cred);
         writeText(x1, y1, xora[1], cred);
 
-        // Determine correct answer
         let correct;
         if (is_division === 1) {
           correct = sinn === 1 ? 1 : 2;
@@ -222,7 +210,6 @@ title: Trigo Trainer
         starttime = performance.now();
       }
 
-      // Handle button clicks
       document.querySelectorAll('.btn').forEach(function(button) {
         button.addEventListener('click', function() {
           if (!flag) return;
@@ -237,7 +224,6 @@ title: Trigo Trainer
         const elapsedTime = (performance.now() - starttime) / 1000;
         timetaken += elapsedTime;
         total += 1;
-        // When total exceeds threshold, force finish:
         if (total > 15 || timetaken > 360) {
           ans = 9;
         }
