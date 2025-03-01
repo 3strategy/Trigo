@@ -1,24 +1,4 @@
-remote_theme: mmistakes/minimal-mistakes@4.26.2
-
-plugins:
-  - jekyll-remote-theme
+remote_theme: "mmistakes/minimal-mistakes@4.26.2"
 title: "מתמטיקה עם גיא"
-show_downloads: false
 description: "אתר עזרי לימוד מתמטיקה של גיא"
 lang: he
-color-scheme: auto
-
-navigation:
-  - name: Home
-    link: ./index.html
-    sublist:
-      - name: Image
-        link: ./another-page1.html
-      - name: Other2
-        link: ./another-page2.html
-  - name: 571
-    link: ./571.pdf
-  - name: Trigo
-    link: ./TrigoTrainer.html
-  - name: anotherP
-    link: ./another-page.html
