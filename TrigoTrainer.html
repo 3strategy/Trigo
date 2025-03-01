@@ -275,26 +275,22 @@ border: 1px solid #000;
         const newDy = dy * ratio;
         const length2 = Math.sqrt(newDx * newDx + newDy * newDy);
         const k = sc * 20 / (length2 || 1);
-        // not needed First marker segment: from (mx,my) in direction perpendicular to second leg.
-
+        
+        // First marker segment: from (mx,my) in direction perpendicular to second leg.
+        const P_x = mx + k * newDy;
+        const P_y = my - k * newDx;
         // Second segment: parallel to second leg.
         let Q_x, Q_y;
         if (ratio > 0) {
-		  P_x = mx + k * newDy;
-          P_y = my - k * newDx;
           Q_x = P_x - k * newDx;
           Q_y = P_y - k * newDy;
-		  // Third segment: perpendicular to the previous direction.
-		  R_x = Q_x - k * newDy;
-		  R_y = Q_y + k * newDx;
         } else {
-		  P_x = mx - k * newDy;
-          P_y = my + k * newDx;
           Q_x = P_x + k * newDx;
           Q_y = P_y + k * newDy;
-		  R_x = Q_x + k * newDy;
-		  R_y = Q_y - k * newDx;
         }
+        // Third segment: perpendicular to the previous direction.
+        const R_x = Q_x - k * newDy;
+        const R_y = Q_y + k * newDx;
 
         drawLine(mx, my, P_x, P_y, cred);
         drawLine(P_x, P_y, Q_x, Q_y, cred);
