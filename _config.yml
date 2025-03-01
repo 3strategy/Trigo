@@ -12,12 +12,12 @@ navigation:
     link: ./index.html
     sublist:
       - name: Image
-        link: ./index.html#small-image
+        link: ./another-page1.html
       - name: Other2
         link: ./another-page2.html
   - name: 571
     link: ./571.pdf
   - name: Trigo
-    link: ./TrigotTrainer.html
+    link: ./TrigoTrainer.html
   - name: anotherP
     link: ./another-page.html
