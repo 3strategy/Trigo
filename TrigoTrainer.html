@@ -10,12 +10,9 @@ title: Trigo Trainer
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
   <title>Triangle Trainer</title>
-  
 </head>
 <body>
-  <h2>Trigo Trainer   <input type="text" id="name-input" placeholder="Enter your name (optional)"/>
-  </h2>
-
+  <h2>Trigo Trainer   <input type="text" id="name-input" placeholder="Enter your name (optional)"/></h2>
   <!-- <div class="device-toggle">
     <label>
       <input type="radio" name="device" value="desktop" checked> Desktop
@@ -24,7 +21,6 @@ title: Trigo Trainer
       <input type="radio" name="device" value="mobile"> Mobile
     </label>
   </div> -->
-
 
   <div id="canvas-container">
     <canvas id="canvas"></canvas>
@@ -36,7 +32,7 @@ title: Trigo Trainer
     <button class="btn" data-value="1">\[a\sin\beta\]</button>
     <button class="btn" data-value="2">\[a\cos\beta\]</button>
   </div>
-  <div>
+  <div id="answer-buttons" class="math-button">
     <button class="btn" data-value="11">\[\frac{a}{\sin\beta}\]</button>
     <button class="btn" data-value="22">\[\frac{a}{\cos\beta}\]</button>
     <button class="btn" data-value="9" style="background-color: #db4437;">Finish</button>
