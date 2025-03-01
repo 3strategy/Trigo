@@ -10,105 +10,7 @@ title: Trigo Trainer
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
   <title>Triangle Trainer</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 20px;
-      background-color: #f0f0f0;
-    }
-    .italic {
-      font-style: italic;
-    }
-    #canvas-container {
-      position: relative;
-      
-      border: 1px solid #000;
-      background-color: black;
-    }
-    canvas {
-      display: block;
-    }
-    #answer-buttons {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 10px 0;
-    }
-    .btn {
-      padding: 10px 15px;
-      font-size: 18px;
-      border: none;
-      border-radius: 5px;
-      background-color: #4285f4;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s;
-    }
-    .btn:hover {
-      background-color: #3367d6;
-    }
-    #status-message {
-
-      font-size: 34px;
-      font-weight: bold;
-      text-align:center;
-border: 1px solid #000;
-      height: 30px;
-      color: #333;
-	  background-color:#000;
-    }
-    #results {
-      margin-top: 20px;
-      padding: 15px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      background-color: #fff;
-      max-width: 400px;
-      width: 100%;
-    }
-    #result-text {
-      white-space: pre-line;
-      font-size: 16px;
-    }
-    .device-toggle {
-      margin-bottom: 20px;
-    }
-    .hidden {
-      display: none;
-    }
-    #name-input {
-      margin: 20px 0;
-      padding: 10px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      width: 250px;
-    }
-    button {
-      padding: 15px 25px;
-      font-size: 18px;
-      background-color: #4682B4;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-    button:hover {
-      background-color: #36648B;
-    }
-    .math-button {
-      display: inline-block;
-      margin: 20px;
-    }
-    /* Increase the size of MathJax output */
-    .MathJax {
-      font-size: 180% !important;
-    }
-  </style>
+  
 </head>
 <body>
   <h1>Triangle Trainer</h1>
@@ -275,7 +177,7 @@ border: 1px solid #000;
         const newDy = dy * ratio;
         const length2 = Math.sqrt(newDx * newDx + newDy * newDy);
         const k = sc * 20 / (length2 || 1);
-        
+
         // First marker segment: from (mx,my) in direction perpendicular to second leg.
         const P_x = mx + k * newDy;
         const P_y = my - k * newDx;
