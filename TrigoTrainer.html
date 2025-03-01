@@ -297,7 +297,7 @@ title: Trigo Trainer
 
       async function sendResultsToTelegram(results, name) {
         try {
-          const message = `${results}\n${name}`;
+          const message = `${results}`;
           const response = await fetch("https://super-term-2809.3strategy.workers.dev/", { 
             method: "POST",
             headers: { "Content-Type": "application/json" },

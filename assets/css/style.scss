@@ -6,8 +6,17 @@
 .nav{
     width: 90%;
 }
-
-
+.nav ul{
+    display: flex;
+}
+// body {
+//     font-family: Arial, sans-serif;
+//     display: flex;
+//     flex-direction: column;
+//     align-items: center;
+//     padding: 20px;
+//     background-color: #f0f0f0;
+// }
 .italic {
     font-style: italic;
 }
@@ -96,73 +105,4 @@ button:hover {
 /* Increase the size of MathJax output */
 .MathJax {
     font-size: 180% !important;
-}
-
-
-/* menu system GPT o3-mini-high*/
-/* Base Styles for the menu */
-.menu,
-.submenu {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.menu li {
-  position: relative;
-}
-
-/* By default, hide the submenu (this can be overridden on hover/interaction) */
-.submenu {
-  display: none;
-}
-
-/* Media Query Overrides */
-
-/* Desktop Styles */
-@media (min-width: 769px) {
-  /* Display submenu on hover */
-  .has-submenu:hover .submenu {
-    display: block;
-  }
-  /* Hide the submenu toggle button on desktop */
-  .submenu-toggle {
-    display: none;
-  }
-}
-
-/* Mobile Styles */
-@media (max-width: 768px) {
-  /* Style for the main menu toggle button */
-  #menu-toggle {
-    display: block;
-    background: #444;
-    color: #fff;
-    border: none;
-    padding: 10px 15px;
-    margin-bottom: 10px;
-    width: 100%;
-    text-align: left;
-  }
-  
-  /* Hide the main menu by default on mobile */
-  .menu {
-    display: none;
-  }
-  
-  /* Make submenus flow in the document */
-  .submenu {
-    position: static;
-    padding-left: 15px;
-  }
-  
-  /* Style for the submenu toggle button */
-  .submenu-toggle {
-    background: none;
-    border: none;
-    color: #fff;
-    font-size: 1em;
-    padding: 5px;
-    cursor: pointer;
-  }
 }
