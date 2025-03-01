@@ -81,7 +81,7 @@ title: Trigo Trainer
 
       // Set up canvas dimensions
       function setupCanvas() {
-        let maxx = mobileMode ? 337 : 700;
+        let maxx = mobileMode ? 400 : 700;
         let maxy = mobileMode ? 400 : 500;
         canvas.width = maxx;
         canvas.height = maxy;
@@ -119,7 +119,7 @@ title: Trigo Trainer
       }
 
       function writeText(x, y, text, color = cblue) {
-        const fontSize = mobileMode ? 48 : 30;
+        const fontSize = mobileMode ? 35 : 40;
         const fontStyle = mobileMode ? 'italic' : 'italic';
         ctx.font = `${fontStyle} ${fontSize}px Arial`;
         ctx.fillStyle = color;
