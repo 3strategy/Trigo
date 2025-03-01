@@ -80,19 +80,29 @@ title: Trigo Trainer
       function setupCanvas() {
         let maxx = mobileMode ? 250 : 600;
         let maxy = mobileMode ? 350 : 500;
-        canvas.width = maxx + 10;
-		statusMessage.style.width = maxx +10+"px";
-		statusMessage.style.height = 70+"px";
-		
-        canvas.height = maxy + 10;
-        canvasContainer.style.width = canvas.width + "px";
-        canvasContainer.style.height = canvas.height + "px";
-        // Set background color
+
+        // Instead of using maxx/2 for center, define the actual canvas dimension
+        const canvasWidth = maxx + 10;
+        const canvasHeight = maxy + 10;
+
+        // Now set the canvas size
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
+
+        // Adjust status message dimension
+        statusMessage.style.width = canvasWidth + "px";
+        statusMessage.style.height = "70px";
+
+        // Container size
+        canvasContainer.style.width = canvasWidth + "px";
+        canvasContainer.style.height = canvasHeight + "px";
+
+        // Fill background
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
 
-      // Handle device toggle
+      // Handle device toggle (if needed)
       const deviceRadios = document.querySelectorAll('input[name="device"]');
       deviceRadios.forEach(function(radio) {
         radio.addEventListener("change", function(e) {
@@ -132,33 +142,34 @@ title: Trigo Trainer
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+        // We'll use the actual canvas dimension for the center
+        const canvasWidth = canvas.width;
+        const canvasHeight = canvas.height;
+
+        // The true center is half of the actual canvas size
+        const centerX = canvasWidth / 2;
+        const centerY = canvasHeight / 2;
+
         // Set parameters
         const sinn = Math.random() > 0.5 ? 1 : 0;
         const is_division = Math.random() > 0.5 ? 1 : 0;
         const sc = mobileMode ? 0.4 : 1;
         const xora = is_division === 0 ? ['a', 'x?'] : ['x?', 'a'];
 
-        // Canvas center and drawing area dimensions
-        const maxx = mobileMode ? 250 : 700;
-        const maxy = mobileMode ? 250 : 500;
-        const centerX = maxx / 2;
-        const centerY = maxy / 2;
-
         // Generate random parameters for the triangle’s shape
+        // (Same logic as before)
         let dx = (sc * 90 + (Math.random() - 0.5) * sc * 140) * (Math.random() > 0.5 ? -1 : 1);
         let l1 = Math.pow(Math.min(centerX, centerY) * 1.2, 2);
         if (sc !== 1) l1 *= 0.7;
-        let dy = Math.pow(l1 - dx * dx, 0.5) * (Math.random() > 0.5 ? -1 : 1);
+        let dy = Math.sqrt(Math.max(l1 - dx * dx, 0)) * (Math.random() > 0.5 ? -1 : 1);
         const ratio = (0.55 + 0.25 * Math.random()) * (Math.random() > 0.5 ? -1 : 1);
 
-        // Compute the three vertices BEFORE centering:
-        // Let A = (ox, oy) where initially we set:
+        // Compute the three vertices BEFORE centering
         let A_x = centerX - 0.5 * dx;
         let A_y = centerY - 0.5 * dy;
-        // B = A + (dx, dy)
         let B_x = A_x + dx;
         let B_y = A_y + dy;
-        // C = B + (newDy, -newDx) where newDx = dx*ratio and newDy = dy*ratio
+
         const newDx = dx * ratio;
         const newDy = dy * ratio;
         let C_x = B_x + newDy;
@@ -168,19 +179,17 @@ title: Trigo Trainer
         const centroid_x = (A_x + B_x + C_x) / 3;
         const centroid_y = (A_y + B_y + C_y) / 3;
 
-        // Compute delta to shift centroid to canvas center
+        // Shift all vertices so the centroid is at centerX, centerY
         const delta_x = centerX - centroid_x;
         const delta_y = centerY - centroid_y;
-
-        // Shift all vertices by delta
         A_x += delta_x; A_y += delta_y;
         B_x += delta_x; B_y += delta_y;
         C_x += delta_x; C_y += delta_y;
 
         // Compute midpoints for labeling
-        const x0 = (A_x + B_x) / 2; // midpoint of AB
+        const x0 = (A_x + B_x) / 2; 
         const y0 = (A_y + B_y) / 2;
-        const x1 = (A_x + C_x) / 2; // midpoint of AC
+        const x1 = (A_x + C_x) / 2; 
         const y1 = (A_y + C_y) / 2;
 
         // Draw the triangle edges
@@ -188,26 +197,20 @@ title: Trigo Trainer
         drawLine(B_x, B_y, C_x, C_y);
         drawLine(A_x, A_y, C_x, C_y);
 
-        // Draw right-angle marker at vertex B.
-        // The right angle is at B (B is computed as A+B).
-        // Compute unit vectors along BA and BC.
-        const L = Math.sqrt(dx*dx + dy*dy);
+        // Right-angle marker at B
+        const L = Math.sqrt(dx * dx + dy * dy);
         const k = sc * 20 / (L || 1);
-        // Vector from B to A is (-dx, -dy)
         const u1x = -dx / L, u1y = -dy / L;
-        // Vector from B to C is (C_x - B_x, C_y - B_y).
-        // But note: originally C was computed as B + (newDy, -newDx) so its vector is (newDy, -newDx).
-        const BC_length = Math.sqrt(newDx*newDx + newDy*newDy);
+        const BC_length = Math.sqrt(newDx * newDx + newDy * newDy);
         const u2x = newDy / (BC_length || 1), u2y = -newDx / (BC_length || 1);
-        // Marker endpoints:
+
         const P_x = B_x + k * u1x;
         const P_y = B_y + k * u1y;
         const Q_x = B_x + k * u2x;
         const Q_y = B_y + k * u2y;
-        // Draw an L-shaped marker by drawing a line from P to Q.
         drawLine(P_x, P_y, Q_x, Q_y, cred);
 
-        // Determine where to place the β label.
+        // β label: A or C
         let xb, yb;
         if (sinn === 0) {
           xb = A_x;
@@ -216,7 +219,6 @@ title: Trigo Trainer
           xb = C_x;
           yb = C_y;
         }
-        // Write labels
         writeText(xb, yb, 'β', cgreen);
         writeText(x0, y0, xora[0], cred);
         writeText(x1, y1, xora[1], cred);
@@ -251,6 +253,7 @@ title: Trigo Trainer
           handleAnswer(9);
           return;
         }
+        // Update counters
         if (correct === 1 || correct === 2) {
           td += elapsedTime;
           if (correct === 1) {
@@ -270,6 +273,8 @@ title: Trigo Trainer
             if (ans !== 9) t22 += 1;
           }
         }
+
+        // Provide feedback
         if (ans === correct) {
           statusMessage.textContent = "Great!";
           statusMessage.style.color = cgreen;
@@ -298,12 +303,36 @@ title: Trigo Trainer
         const name = nameInput.value.trim() || "Anonymous";
         let resultString = `Thanks ${name}. ${counter} correct of ${total}\n`;
         resultString += `Avg response time is ${(timetaken/Math.max(1, total)).toFixed(1)}\n`;
-        resultString += t1 > 0 ? `\n${c1} correct sin multiplications (${(100*c1/t1).toFixed(1)}%)` : `\nN/A correct sin multiplications (N/A%)`;
-        resultString += t2 > 0 ? `\n${c2} correct cos multiplications (${(100*c2/t2).toFixed(1)}%)` : `\nN/A correct cos multiplications (N/A%)`;
-        resultString += t11 > 0 ? `\n${c11} correct sin divisions (${(100*c11/t11).toFixed(1)}%)` : `\nN/A correct sin divisions (N/A%)`;
-        resultString += t22 > 0 ? `\n${c22} correct cos divisions (${(100*c22/t22).toFixed(1)}%)` : `\nN/A correct cos divisions (N/A%)`;
-        resultString += (t11+t22) > 0 ? `\nAvg time for divisions: ${(td/(t11+t22)).toFixed(1)}` : `\nAvg time for divisions: N/A`;
-        resultString += (t1+t2) > 0 ? `\nAvg time for multiplications: ${(tm/(t1+t2)).toFixed(1)}` : `\nAvg time for multiplications: N/A`;
+        if (t1 > 0) {
+          resultString += `\n${c1} correct sin multiplications (${(100*c1/t1).toFixed(1)}%)`;
+        } else {
+          resultString += `\nN/A correct sin multiplications (N/A%)`;
+        }
+        if (t2 > 0) {
+          resultString += `\n${c2} correct cos multiplications (${(100*c2/t2).toFixed(1)}%)`;
+        } else {
+          resultString += `\nN/A correct cos multiplications (N/A%)`;
+        }
+        if (t11 > 0) {
+          resultString += `\n${c11} correct sin divisions (${(100*c11/t11).toFixed(1)}%)`;
+        } else {
+          resultString += `\nN/A correct sin divisions (N/A%)`;
+        }
+        if (t22 > 0) {
+          resultString += `\n${c22} correct cos divisions (${(100*c22/t22).toFixed(1)}%)`;
+        } else {
+          resultString += `\nN/A correct cos divisions (N/A%)`;
+        }
+        if (t11 + t22 > 0) {
+          resultString += `\nAvg time for divisions: ${(td/(t11+t22)).toFixed(1)}`;
+        } else {
+          resultString += `\nAvg time for divisions: N/A`;
+        }
+        if (t1 + t2 > 0) {
+          resultString += `\nAvg time for multiplications: ${(tm/(t1+t2)).toFixed(1)}`;
+        } else {
+          resultString += `\nAvg time for multiplications: N/A`;
+        }
         resultText.textContent = resultString;
         resultsDiv.classList.remove("hidden");
         sendResultsToTelegram(resultString, name);
@@ -332,9 +361,9 @@ title: Trigo Trainer
         total = 0;
         counter = 0;
         timetaken = 0;
-        c1 = c2 = c11 = c22 = 0;
-        t1 = t2 = t11 = t22 = 0;
-        tm = td = 0;
+        c1 = 0; c2 = 0; c11 = 0; c22 = 0;
+        t1 = 0; t2 = 0; t11 = 0; t22 = 0;
+        tm = 0; td = 0;
         resultsDiv.classList.add("hidden");
         triangle1();
       });
