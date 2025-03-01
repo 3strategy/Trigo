@@ -24,14 +24,16 @@
             <!-- <li class="fork"><a href="{{ site.github.repository_url }}">View On GitHub</a></li> -->
             <li class="fork"><a href="index.html">Home</a></li>
             <li class="fork"><a href="TrigoTrainer.html">Trigo</a></li>
-            <li class="fork"><a href="content1.html">571-1</a></li>
-            <li class="fork"><a href="content2.html">571-2</a></li>
-            <li class="fork"><a href="content3.html">571-3</a></li>
+            <!--inside content1 you have an embedded example of pdf <li class="fork"><a href="content1.html">571-1</a></li> -->
+            <!--content2 has it served with html on the title but raw PDF displayed. <li class="fork"><a href="content2.html">571-2</a></li> -->
+            <!--content3 goes to 404 <li class="fork"><a href="content3.html">571-3</a></li> -->
             <li class="fork"><a href="another-page.html">another-page</a></li>
-           
-            <li class="fork"><a href="571.pdf">571pdf-4</a></li>
+            <!-- this one below 571.pdf makes the most sense since there's not html involved and the uri shows 571.pdf -->
+            <!-- only after several attempts and a long wait it did open on the phone's browser (i.e. no xodo or 3rd party) -->
+            <!-- and phone caching seems fine -->
+            <li class="fork"><a href="571.pdf">571pdf</a></li>
             {% if site.show_downloads %}
-              <li class="downloads"><a href="571.pdf">571-5</a></li>
+              <!-- <li class="downloads"><a href="571.pdf">571-5</a></li> -->
 
               <li class="title">DOWNLOADS</li>
             {% endif %}
@@ -44,10 +46,10 @@
       <section>
         <div id="title">
           <h1>{{ site.title | default: site.github.repository_name }}</h1>
-          <p>{{ site.description | default: site.github.project_tagline }}</p>
-          <hr>
-          <span class="credits left">Project maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></span>
-          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/mattgraham">mattgraham</a></span>
+          <!-- <p>{{ site.description | default: site.github.project_tagline }}</p> -->
+          <!-- <hr> -->
+          <!-- <span class="credits left">Project maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/mattgraham">mattgraham</a></span> -->
         </div>
 
         {{ content }}
