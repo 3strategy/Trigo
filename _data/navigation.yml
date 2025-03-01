@@ -2,7 +2,7 @@ main:
   - title: "Home"
     url: index.html
   - title: "Trigo"
-    url: trigotrainer.html
+    url: TrigoTrainer.html
   - title: "571"
     url: 571.pdf
   - title: "another"
