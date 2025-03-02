@@ -40,8 +40,9 @@ title: Trigo Trainer
     <!-- Status message: centered both horizontally and vertically over the canvas -->
     <div id="status-message" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
     <!-- Results div: anchored to the left edge and vertically centered -->
-    <div id="results" class="hidden" style="position: absolute; top: 50%; left: 0; transform: translateY(-50%);">
-      <h2 class="results-text">תוצאות:</h2>
+    <div id="results" class="hidden" style="position: absolute;display: flex;
+  flex-direction: column; top: 30%; left: 0; transform: translateY(-50%);">
+      <h2 class="results-head" >תוצאות:</h2>
       <div id="result-text"></div>
       <button id="restart-btn" class="btn" style="margin-top: 15px; background-color: #0f9d58;">Restart</button>
     </div>

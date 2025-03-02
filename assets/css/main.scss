@@ -1,16 +1,17 @@
 ---
 ---
 
-// @import "{{ site.theme }}";
+/* @import "{{ site.theme }}"; */
 @charset "utf-8";
 $body-color : #ccc;
 $background-color: #000;
 $text-color: #ccc;
 $link-color: purple;
 $masthead-link-color: orange;
-
-@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; // skin
-@import "minimal-mistakes"; // main partials
+/* // skin */
+@import "minimal-mistakes/skins/{{ site.minimal_mistakes_skin | default: 'default' }}"; 
+/* // main partials */
+@import "minimal-mistakes"; 
 
 body{
     direction: rtl;
@@ -20,9 +21,7 @@ body{
 h2{
     margin-top: 0;
     margin-bottom: 0.1em;
-    margin-right: 0.5em;
-    margin-left:0.5em;
-    align-self:flex-end;
+    margin-right: 0.1em;
 }
 .italic {
     font-style: italic;
@@ -39,9 +38,10 @@ canvas {
 #answer-buttons {
     display: flex;
     justify-content: center;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     gap: 3px;
-    padding:5px;
+    box-sizing: border-box;
+    padding:25px;
     /* margin: 5px; */
 }
 .btn {
@@ -77,12 +77,13 @@ canvas {
     width: 90%;
     display: flex;
 }
-.results-text{
+.results-head{
     white-space: pre-line;
-    color:greenyellow;
+    color:rgb(87, 255, 45);
     font-size: 1.3em;
 }
 #result-text {
+
     white-space: pre-line;
     color:greenyellow;
     font-size: 1.3em;
