@@ -297,7 +297,7 @@ title: Trigo Trainer
         resultString += t22 > 0 ? `\n${c22} חלוקות קוסינוס נכונות (${(100 * c22 / t22).toFixed(1)}%)` : `\nחלוקות קוסינוס - אין`;
         resultString += (t11 + t22) > 0 ? `\nזמן ממוצע בחלוקות: ${(td / (t11 + t22)).toFixed(1)}` : `\nזמן ממוצע בחלוקות: אין`;
         resultString += (t1 + t2) > 0 ? `\nזמן ממוצע במכפלות: ${(tm / (t1 + t2)).toFixed(1)}` : `\nזמן ממוצע במכפלות: אין`;
-        if (total>10 && counter/total >0.9)
+        if (total > 10 && counter / total > 0.9)
           addResult(name, score); //write good scores to firebase
         // Use innerHTML and replace newlines with <br> for proper line breaks in HTML
         resultText.innerHTML = resultString.replace(/\n/g, "<br>");
@@ -340,7 +340,7 @@ title: Trigo Trainer
   </script>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-    import { getFirestore, serverTimestamp, collection, addDoc, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+    import { getFirestore, serverTimestamp, collection, addDoc, query, orderBy, limit, getDocs, updateDoc, where } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
     // import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js"; // You can remove this if not using Analytics
 
 
@@ -361,15 +361,35 @@ title: Trigo Trainer
     async function addResult(name, score) {
       const gameID = 1;  // You can make this a parameter if needed.
       try {
-        const docRef = await addDoc(collection(db, "allTimeRecords"), {
-          name: name,
-          score: score,
-          gameID: gameID,
-          dateAchieved: serverTimestamp()
-        });
-        console.log("Document written with ID: ", docRef.id);
+        // Create a query to check if a document with the same name and gameID exists
+        const q = query(
+          collection(db, "allTimeRecords"),
+          where("name", "==", name),
+          where("gameID", "==", gameID)
+        );
+
+        const querySnapshot = await getDocs(q);
+
+        if (querySnapshot.empty) {
+          // No existing document: add a new one.
+          const docRef = await addDoc(collection(db, "allTimeRecords"), {
+            name: name,
+            score: score,
+            gameID: gameID,
+            dateAchieved: serverTimestamp()
+          });
+          console.log("Document written with ID: ", docRef.id);
+        } else {
+          // Document exists: update the first matching document.
+          const docRef = querySnapshot.docs[0].ref;
+          await updateDoc(docRef, {
+            score: score,
+            dateAchieved: serverTimestamp()
+          });
+          console.log("Document updated with ID: ", querySnapshot.docs[0].id);
+        }
       } catch (error) {
-        console.error("Error adding document: ", error);
+        console.error("Error adding/updating document: ", error);
       }
     }
 
@@ -377,7 +397,7 @@ title: Trigo Trainer
 
     async function showTopFive() {
       try {
-        const q = query(collection(db, "allTimeRecords"), orderBy("score", "desc"), limit(35));
+        const q = query(collection(db, "allTimeRecords"), orderBy("score", "asc"), limit(35));
         const querySnapshot = await getDocs(q);
         let tableHTML = "<table><tr><th>Name</th><th>Score</th></tr>";
         querySnapshot.forEach((doc) => {
