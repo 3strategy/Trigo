@@ -41,7 +41,7 @@ title: Trigo Trainer
     <div id="status-message" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
     <!-- Results div: anchored to the left edge and vertically centered -->
     <div id="results" class="hidden" style="position: absolute; top: 50%; left: 0; transform: translateY(-50%);">
-      <h2>Results</h2>
+      <h2 class="results-text">תוצאות:</h2>
       <div id="result-text"></div>
       <button id="restart-btn" class="btn" style="margin-top: 15px; background-color: #0f9d58;">Restart</button>
     </div>
@@ -283,14 +283,14 @@ title: Trigo Trainer
         ctx.fillStyle = 'black';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         const name = nameInput.value.trim() || "Anonymous";
-        let resultString = `Thanks ${name}. ${counter} correct of ${total}\n`;
-        resultString += `Avg response time is ${(timetaken/Math.max(1, total)).toFixed(1)}\n`;
-        resultString += t1 > 0 ? `\n${c1} correct sin multiplications (${(100*c1/t1).toFixed(1)}%)` : `\nN/A correct sin multiplications (N/A%)`;
-        resultString += t2 > 0 ? `\n${c2} correct cos multiplications (${(100*c2/t2).toFixed(1)}%)` : `\nN/A correct cos multiplications (N/A%)`;
-        resultString += t11 > 0 ? `\n${c11} correct sin divisions (${(100*c11/t11).toFixed(1)}%)` : `\nN/A correct sin divisions (N/A%)`;
-        resultString += t22 > 0 ? `\n${c22} correct cos divisions (${(100*c22/t22).toFixed(1)}%)` : `\nN/A correct cos divisions (N/A%)`;
-        resultString += (t11+t22) > 0 ? `\nAvg time for divisions: ${(td/(t11+t22)).toFixed(1)}` : `\nAvg time for divisions: N/A`;
-        resultString += (t1+t2) > 0 ? `\nAvg time for multiplications: ${(tm/(t1+t2)).toFixed(1)}` : `\nAvg time for multiplications: N/A`;
+        let resultString = `תודה ${name}. ${counter} נכונות מתוך ${total}\n`;
+        resultString += `זמן פתרון ממוצע: ${(timetaken/Math.max(1, total)).toFixed(1)}\n`;
+        resultString += t1 > 0 ? `\n${c1} מכפלות סינוס נכונות (${(100*c1/t1).toFixed(1)}%)` : `\nמכפלות סינוס - אין`;
+        resultString += t2 > 0 ? `\n${c2} מכפלות קוסינוס נכונות (${(100*c2/t2).toFixed(1)}%)` : `\nמכפלות קוסינוס - אין`;
+        resultString += t11 > 0 ? `\n${c11} חלוקות סינוס נכונות (${(100*c11/t11).toFixed(1)}%)` : `\nחלוקות סינוס - אין`;
+        resultString += t22 > 0 ? `\n${c22} חלוקות קוסינוס נכונות (${(100*c22/t22).toFixed(1)}%)` : `\nחלוקות קוסינוס - אין`;
+        resultString += (t11+t22) > 0 ? `\nזמן ממוצע בחלוקות: ${(td/(t11+t22)).toFixed(1)}` : `\nזמן ממוצע בחלוקות: אין`;
+        resultString += (t1+t2) > 0 ? `\nזמן ממוצע במכפלות: ${(tm/(t1+t2)).toFixed(1)}` : `\nזמן ממוצע במכפלות: אין`;
         
         // Use innerHTML and replace newlines with <br> for proper line breaks in HTML
         resultText.innerHTML = resultString.replace(/\n/g, "<br>");
