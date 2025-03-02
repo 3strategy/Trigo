@@ -4,6 +4,9 @@
 @import "{{ site.theme }}";
 
 
+body{
+    margin:0;
+}
 .italic {
     font-style: italic;
 }
@@ -21,15 +24,15 @@ canvas {
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
-    margin: 10px 0;
+    margin: 0px 0;
 }
 .btn {
-    padding: 10px 15px;
+    padding: 10px 20px;
     font-size: 18px;
     border: none;
     border-radius: 5px;
-    background-color: #4285f4;
-    color: white;
+    background-color: rgb(237, 237, 208);
+    color: black;
     cursor: pointer;
     transition: background-color 0.3s;
 }
@@ -41,10 +44,10 @@ canvas {
     font-size: 3rem;
     font-weight: bold;
     text-align:center;
-    border: 1px solid #000;
+    border: none;
     height: 60px;
     color: #daa;
-    background-color:#000;
+    background-color: transparent;
 }
 #results {
     margin-top: 20px;
@@ -88,11 +91,14 @@ button:hover {
 }
 .math-button {
     display: inline-block;
-    margin: 20px;
+background-color: #000;
+margin:0;
 }
 /* Increase the size of MathJax output */
 .MathJax {
     font-weight: bold;
-    font-size: 300% !important;
-    max-height: 3rem;
+    font-size: 130% !important;
+    padding-top:0em;
+    padding-bottom:0em;
 }
+
