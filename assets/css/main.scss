@@ -7,6 +7,10 @@
 body{
     margin:0;
 }
+
+h2{
+    margin: 0.8em 0 0 0.2em;
+}
 .italic {
     font-style: italic;
 }
@@ -23,8 +27,8 @@ canvas {
     display: flex;
     justify-content: center;
     flex-wrap: nowrap;
-    gap: 8px;
-    margin: 0px 0;
+    gap: 3px;
+    margin: 5px;
 }
 .btn {
     padding: 10px 20px;
