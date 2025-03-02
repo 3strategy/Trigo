@@ -80,8 +80,8 @@ title: Trigo Trainer
 
       // Set up canvas dimensions
       function setupCanvas() {
-        let maxx = mobileMode ? 250 : 337;
-        let maxy = mobileMode ? 350 : 450;
+        let maxx = mobileMode ? 400 : 700;
+        let maxy = mobileMode ? 400 : 500;
         canvas.width = maxx;
         canvas.height = maxy;
         statusMessage.style.width = maxx + "px";
@@ -118,7 +118,7 @@ title: Trigo Trainer
       }
 
       function writeText(x, y, text, color = cblue) {
-        const fontSize = mobileMode ? 48 : 30;
+        const fontSize = mobileMode ? 35 : 40;
         const fontStyle = mobileMode ? 'italic' : 'italic';
         ctx.font = `${fontStyle} ${fontSize}px Arial`;
         ctx.fillStyle = color;
@@ -147,6 +147,7 @@ title: Trigo Trainer
         let dy = Math.sqrt(Math.max(l1 - dx * dx, 0)) * (Math.random() > 0.5 ? -1 : 1);
         const ratio = (0.55 + 0.25 * Math.random()) * (Math.random() > 0.5 ? -1 : 1);
 
+        // Compute vertices BEFORE centering
         let A_x = centerX - 0.5 * dx;
         let A_y = centerY - 0.5 * dy;
         let B_x = A_x + dx;
@@ -156,6 +157,7 @@ title: Trigo Trainer
         let C_x = B_x + newDy;
         let C_y = B_y - newDx;
 
+        // Compute centroid
         const centroid_x = (A_x + B_x + C_x) / 3;
         const centroid_y = (A_y + B_y + C_y) / 3;
 
