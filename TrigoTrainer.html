@@ -90,8 +90,16 @@ title: Trigo Trainer
 
       // Set up canvas dimensions
       function setupCanvas() {
-        let maxx = mobileMode ? 400 : 700;
-        let maxy = mobileMode ? 400 : 500;
+        let maxx, maxy;
+        
+        if (mobileMode) {
+          // For mobile, use 100% of screen width
+          maxx = window.innerWidth;
+          //maxy = Math.min(maxx, 400); // Keep height reasonable
+        } else {
+          maxx = 700;
+          maxy = 500;
+        }
         canvas.width = maxx;
         canvas.height = maxy;
         statusMessage.style.width = maxx + "px";
