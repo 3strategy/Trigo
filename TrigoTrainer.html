@@ -5,17 +5,19 @@ title: Trigo Trainer
 <!--for theme setup guide: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/ -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.js"></script>
   <link rel="stylesheet" href="./assets/css/styignore.css">
 
 
   <title>Triangle Trainer</title>
 </head>
+
 <body>
-  <h2 class="mb-4">תרגול טריגו <input style="max-width: 90%;" type="text" id="name-input" placeholder="שם: "/></h2>
+  <h2 class="mb-4">תרגול טריגו <input style="max-width: 90%;" type="text" id="name-input" placeholder="שם: " /></h2>
   <!-- <div class="device-toggle">
 
     <label>
@@ -42,7 +44,7 @@ title: Trigo Trainer
     <!-- Results div: anchored to the left edge and vertically centered -->
     <div id="results" class="hidden" style="position: absolute;display: flex;
   flex-direction: column; top: 30%; left: 0; transform: translateY(-50%);">
-      <h2 class="results-head" >תוצאות:</h2>
+      <h2 class="results-head">תוצאות:</h2>
       <div id="result-text"></div>
       <button id="restart-btn" class="btn" style="margin-top: 15px; background-color: #0f9d58;">Restart</button>
     </div>
@@ -53,13 +55,15 @@ title: Trigo Trainer
 
     <button class="btn" data-value="9" style="background-color: #db4437;">Finish</button>
   </div>
-
+  <button id="showLeaderboard">Show Leaderboard</button>
+  <div id="leaderboard"></div>
+  
   <script>
-    window.onload = function() {
+    window.onload = function () {
       MathJax.typeset();
     }
 
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
       // Auto-detect mobile via matchMedia
       let mobileMode = window.matchMedia("(max-width: 600px)").matches;
 
@@ -222,8 +226,8 @@ title: Trigo Trainer
         starttime = performance.now();
       }
 
-      document.querySelectorAll('.btn').forEach(function(button) {
-        button.addEventListener('click', function() {
+      document.querySelectorAll('.btn').forEach(function (button) {
+        button.addEventListener('click', function () {
           if (!flag) return;
           const value = parseInt(this.getAttribute('data-value') || '0');
           handleAnswer(value);
@@ -285,14 +289,16 @@ title: Trigo Trainer
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         const name = nameInput.value.trim() || "Anonymous";
         let resultString = `תודה ${name}. ${counter} נכונות מתוך ${total}\n`;
-        resultString += `זמן פתרון ממוצע: ${(timetaken/Math.max(1, total)).toFixed(1)}\n`;
-        resultString += t1 > 0 ? `\n${c1} מכפלות סינוס נכונות (${(100*c1/t1).toFixed(1)}%)` : `\nמכפלות סינוס - אין`;
-        resultString += t2 > 0 ? `\n${c2} מכפלות קוסינוס נכונות (${(100*c2/t2).toFixed(1)}%)` : `\nמכפלות קוסינוס - אין`;
-        resultString += t11 > 0 ? `\n${c11} חלוקות סינוס נכונות (${(100*c11/t11).toFixed(1)}%)` : `\nחלוקות סינוס - אין`;
-        resultString += t22 > 0 ? `\n${c22} חלוקות קוסינוס נכונות (${(100*c22/t22).toFixed(1)}%)` : `\nחלוקות קוסינוס - אין`;
-        resultString += (t11+t22) > 0 ? `\nזמן ממוצע בחלוקות: ${(td/(t11+t22)).toFixed(1)}` : `\nזמן ממוצע בחלוקות: אין`;
-        resultString += (t1+t2) > 0 ? `\nזמן ממוצע במכפלות: ${(tm/(t1+t2)).toFixed(1)}` : `\nזמן ממוצע במכפלות: אין`;
-        
+        let score = (timetaken / Math.max(1, total)).toFixed(1)
+        resultString += `זמן פתרון ממוצע: ${score}\n`;
+        resultString += t1 > 0 ? `\n${c1} מכפלות סינוס נכונות (${(100 * c1 / t1).toFixed(1)}%)` : `\nמכפלות סינוס - אין`;
+        resultString += t2 > 0 ? `\n${c2} מכפלות קוסינוס נכונות (${(100 * c2 / t2).toFixed(1)}%)` : `\nמכפלות קוסינוס - אין`;
+        resultString += t11 > 0 ? `\n${c11} חלוקות סינוס נכונות (${(100 * c11 / t11).toFixed(1)}%)` : `\nחלוקות סינוס - אין`;
+        resultString += t22 > 0 ? `\n${c22} חלוקות קוסינוס נכונות (${(100 * c22 / t22).toFixed(1)}%)` : `\nחלוקות קוסינוס - אין`;
+        resultString += (t11 + t22) > 0 ? `\nזמן ממוצע בחלוקות: ${(td / (t11 + t22)).toFixed(1)}` : `\nזמן ממוצע בחלוקות: אין`;
+        resultString += (t1 + t2) > 0 ? `\nזמן ממוצע במכפלות: ${(tm / (t1 + t2)).toFixed(1)}` : `\nזמן ממוצע במכפלות: אין`;
+
+        addResult(name, score); //attempt writing to fire base
         // Use innerHTML and replace newlines with <br> for proper line breaks in HTML
         resultText.innerHTML = resultString.replace(/\n/g, "<br>");
         resultsDiv.classList.remove("hidden");
@@ -302,7 +308,7 @@ title: Trigo Trainer
       async function sendResultsToTelegram(results, name) {
         try {
           const message = `${results}\n${new Date().toLocaleString()}\n${name}\n${tm}, ${td}, ${timetaken}`;
-          const response = await fetch("https://super-term-2809.3strategy.workers.dev/", { 
+          const response = await fetch("https://super-term-2809.3strategy.workers.dev/", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ message })
@@ -317,7 +323,7 @@ title: Trigo Trainer
         }
       }
 
-      document.getElementById("restart-btn").addEventListener("click", function() {
+      document.getElementById("restart-btn").addEventListener("click", function () {
         flag = true;
         total = 0;
         counter = 0;
@@ -332,6 +338,53 @@ title: Trigo Trainer
       setTimeout(triangle1, 100);
     });
   </script>
-  
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+    import { getFirestore, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+    // import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js"; // You can remove this if not using Analytics
+
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDSSj_IJfpfKKJ1UvQZqU2JDbT_yFvXDtk",  //Replace with YOUR API KEY
+      authDomain: "leaderboard-guy.firebaseapp.com",
+      projectId: "leaderboard-guy",
+      storageBucket: "leaderboard-guy.firebasestorage.app",
+      messagingSenderId: "245883430664",
+      appId: "1:245883430664:web:ec66445cb659feb4ad6ebd",  //Replace with YOUR APP ID
+      measurementId: "G-69SHC0XKYH" //Optional - Replace with YOUR MEASUREMENT ID if using Analytics
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    async function addResult(name, score) {
+      // ... (Your addResult function from previous response) ...
+    }
+
+    async function showTopFive() {
+      try {
+        const q = query(collection(db, "allTimeRecords"), orderBy("score", "desc"), limit(5));
+        const querySnapshot = await getDocs(q);
+        let tableHTML = "<table><tr><th>Name</th><th>Score</th></tr>";
+        querySnapshot.forEach((doc) => {
+          tableHTML += `<tr><td>${doc.data().name}</td><td>${doc.data().score}</td></tr>`;
+        });
+        tableHTML += "</table>";
+        console.log(tableHTML); //For debugging.
+        document.getElementById("leaderboard").innerHTML = tableHTML;
+      } catch (error) {
+        console.error("Error fetching leaderboard:", error);
+        document.getElementById("leaderboard").innerHTML = "<p>Error fetching leaderboard.</p>";
+      }
+    }
+
+    const showLeaderboardButton = document.getElementById("showLeaderboard");
+    showLeaderboardButton.addEventListener("click", showTopFive);
+
+    // Example usage:
+    //addResult("Bob", 8500); //Test adding a score.  Remove in production
+  </script>
+
 </body>
+
 </html>
