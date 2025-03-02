@@ -22,11 +22,12 @@ title: Trigo Trainer
     </label>
   </div> -->
 
+  <!-- canvas container remains relative -->
   <div id="canvas-container" style="position: relative;">
     <canvas id="canvas"></canvas>
-    <!-- Status message is centered over the canvas -->
+    <!-- Status message: centered both horizontally and vertically over the canvas -->
     <div id="status-message" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
-    <!-- Results div is anchored to the left of the canvas and vertically centered -->
+    <!-- Results div: anchored to the left edge and vertically centered -->
     <div id="results" class="hidden" style="position: absolute; top: 50%; left: 0; transform: translateY(-50%);">
       <h2>Results</h2>
       <div id="result-text"></div>
@@ -35,12 +36,15 @@ title: Trigo Trainer
   </div>
 
   <div id="answer-buttons" class="math-button">
-    <button class="MathJax" data-value="1">\[a\sin\beta\]</button>
-    <button class="MathJax" data-value="2">\[a\cos\beta\]</button>
+    <!-- must have btn class to be clickable -->
+    <button class="MathJax btn" data-value="1">\[a\sin\beta\]</button>
+    <button class="MathJax btn" data-value="11">\[\frac{a}{\sin\beta}\]</button>
+    <button class="MathJax btn" data-value="2">\[a\cos\beta\]</button>
+    <button class="MathJax btn" data-value="22">\[\frac{a}{\cos\beta}\]</button>
   </div>
   <div id="answer-buttons" class="math-button">
-    <button class="MathJax" data-value="11">\[\frac{a}{\sin\beta}\]</button>
-    <button class="MathJax" data-value="22">\[\frac{a}{\cos\beta}\]</button>
+
+
     <button class="btn" data-value="9" style="background-color: #db4437;">Finish</button>
   </div>
 
@@ -279,9 +283,7 @@ title: Trigo Trainer
         resultString += t22 > 0 ? `\n${c22} correct cos divisions (${(100*c22/t22).toFixed(1)}%)` : `\nN/A correct cos divisions (N/A%)`;
         resultString += (t11+t22) > 0 ? `\nAvg time for divisions: ${(td/(t11+t22)).toFixed(1)}` : `\nAvg time for divisions: N/A`;
         resultString += (t1+t2) > 0 ? `\nAvg time for multiplications: ${(tm/(t1+t2)).toFixed(1)}` : `\nAvg time for multiplications: N/A`;
-
-        // Replace newline characters with <br> for HTML display
-        resultText.innerHTML = resultString.replace(/\n/g, "<br>");
+        resultText.textContent = resultString;
         resultsDiv.classList.remove("hidden");
         sendResultsToTelegram(resultString, name);
       }

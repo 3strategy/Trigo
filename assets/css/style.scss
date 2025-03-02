@@ -38,11 +38,11 @@ canvas {
 }
 #status-message {
 
-    font-size: 2rem;
+    font-size: 3rem;
     font-weight: bold;
     text-align:center;
     border: 1px solid #000;
-    height: 30px;
+    height: 60px;
     color: #daa;
     background-color:#000;
 }
@@ -92,5 +92,7 @@ button:hover {
 }
 /* Increase the size of MathJax output */
 .MathJax {
+    font-weight: bold;
     font-size: 300% !important;
+    max-height: 3rem;
 }
