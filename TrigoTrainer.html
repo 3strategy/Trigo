@@ -297,8 +297,8 @@ title: Trigo Trainer
         resultString += t22 > 0 ? `\n${c22} חלוקות קוסינוס נכונות (${(100 * c22 / t22).toFixed(1)}%)` : `\nחלוקות קוסינוס - אין`;
         resultString += (t11 + t22) > 0 ? `\nזמן ממוצע בחלוקות: ${(td / (t11 + t22)).toFixed(1)}` : `\nזמן ממוצע בחלוקות: אין`;
         resultString += (t1 + t2) > 0 ? `\nזמן ממוצע במכפלות: ${(tm / (t1 + t2)).toFixed(1)}` : `\nזמן ממוצע במכפלות: אין`;
-
-        addResult(name, score); //attempt writing to fire base
+        if (total>10 && counter/total >0.9)
+          addResult(name, score); //write good scores to firebase
         // Use innerHTML and replace newlines with <br> for proper line breaks in HTML
         resultText.innerHTML = resultString.replace(/\n/g, "<br>");
         resultsDiv.classList.remove("hidden");
@@ -377,7 +377,7 @@ title: Trigo Trainer
 
     async function showTopFive() {
       try {
-        const q = query(collection(db, "allTimeRecords"), orderBy("score", "desc"), limit(5));
+        const q = query(collection(db, "allTimeRecords"), orderBy("score", "desc"), limit(35));
         const querySnapshot = await getDocs(q);
         let tableHTML = "<table><tr><th>Name</th><th>Score</th></tr>";
         querySnapshot.forEach((doc) => {
