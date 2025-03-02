@@ -5,6 +5,8 @@ main:
     url: TrigoTrainer.html
   - title: "571"
     url: 571.pdf
+  - title: "581"
+    url: 581.pdf
   - title: "another"
     url: ./another-page.html
   - title: "another2"
