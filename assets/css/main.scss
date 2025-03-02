@@ -11,7 +11,8 @@ body{
 
 h2{
     margin-top: 0;
-    margin-bottom: 01em;
+    margin-bottom: 0.1em;
+    margin-right: 0.1em;
 }
 .italic {
     font-style: italic;
@@ -19,7 +20,7 @@ h2{
 #canvas-container {
     position: relative;
     
-    border: 1px solid #000;
+    border: none;
     background-color: black;
 }
 canvas {
@@ -63,7 +64,7 @@ canvas {
     border-radius: 5px;
     background-color: #000;
     max-width: 400px;
-    width: 100%;
+    width: 95%;
 }
 .results-text{
     white-space: pre-line;
