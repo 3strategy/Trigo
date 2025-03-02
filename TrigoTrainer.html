@@ -57,7 +57,7 @@ title: Trigo Trainer
   </div>
   <button id="showLeaderboard">Show Leaderboard</button>
   <div id="leaderboard"></div>
-  
+
   <script>
     window.onload = function () {
       MathJax.typeset();
@@ -340,7 +340,7 @@ title: Trigo Trainer
   </script>
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
-    import { getFirestore, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+    import { getFirestore, serverTimestamp, collection, addDoc, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
     // import { getAnalytics } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-analytics.js"; // You can remove this if not using Analytics
 
 
@@ -357,9 +357,23 @@ title: Trigo Trainer
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
+
     async function addResult(name, score) {
-      // ... (Your addResult function from previous response) ...
+      const gameID = 1;  // You can make this a parameter if needed.
+      try {
+        const docRef = await addDoc(collection(db, "allTimeRecords"), {
+          name: name,
+          score: score,
+          gameID: gameID,
+          dateAchieved: serverTimestamp()
+        });
+        console.log("Document written with ID: ", docRef.id);
+      } catch (error) {
+        console.error("Error adding document: ", error);
+      }
     }
+
+
 
     async function showTopFive() {
       try {
@@ -381,6 +395,8 @@ title: Trigo Trainer
     const showLeaderboardButton = document.getElementById("showLeaderboard");
     showLeaderboardButton.addEventListener("click", showTopFive);
 
+    window.addResult = addResult;  // Make addResult globally accessible
+    window.showTopFive = showTopFive; // Make showTopFive globally accessible
     // Example usage:
     //addResult("Bob", 8500); //Test adding a score.  Remove in production
   </script>
