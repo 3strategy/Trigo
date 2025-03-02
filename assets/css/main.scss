@@ -71,8 +71,9 @@ canvas {
     border: 1px solid #ccc;
     border-radius: 5px;
     background-color: #000;
-    max-width: 400px;
-    width: 95%;
+    max-width: 380px;
+    width: 90%;
+    display: flex;
 }
 .results-text{
     white-space: pre-line;

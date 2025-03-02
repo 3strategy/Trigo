@@ -1,8 +1,10 @@
 main:
-  - title: "Home"
-    url: index.html
-  - title: "Trigo"
+  - title: "טריגו"
     url: TrigoTrainer.html
+  - title: "פרטי"
+    url: lessons.html
+  - title: "בית"
+    url: index.html
   - title: "571"
     url: 571.pdf
   - title: "581"
