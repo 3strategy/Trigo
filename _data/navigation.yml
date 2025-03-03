@@ -11,6 +11,8 @@ main:
     url: 581.pdf
   - title: "482"
     url: 482.pdf
+  - title: "קדם אנליזה"
+    url: "PreAnalysis.pdf"
   - title: "יוד שלי"
     url: "https://docs.google.com/document/d/1gV8HOY7n_PZ3dOHA-7zMT4uJ-flTygiAMwXTu9pVQG0/edit?tab=t.b5fjm84kagyn"
   - title: "יא שלי"
@@ -21,4 +23,5 @@ main:
     url: "https://drive.google.com/drive/u/0/folders/1BZe9Ltng4NWlHQtV4o-_i4XQGxvgiGeh"
   - title: "לצוות ה6 שנתי"
     url: "https://saritsamuel2016.mozello.co.il/page-28/"
+
 
