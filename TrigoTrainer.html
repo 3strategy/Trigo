@@ -359,39 +359,43 @@ title: Trigo Trainer
 
 
     async function addResult(name, score) {
-      const gameID = 1;  // You can make this a parameter if needed.
-      try {
-        // Create a query to check if a document with the same name and gameID exists
-        const q = query(
-          collection(db, "allTimeRecords"),
-          where("name", "==", name),
-          where("gameID", "==", gameID)
-        );
+  const gameID = 1;  // You can make this a parameter if needed.
+  try {
+    // Convert score to a number to ensure correct type
+    const numericScore = Number(score);
 
-        const querySnapshot = await getDocs(q);
+    // Create a query to check if a document with the same name and gameID exists
+    const q = query(
+      collection(db, "allTimeRecords"),
+      where("name", "==", name),
+      where("gameID", "==", gameID)
+    );
 
-        if (querySnapshot.empty) {
-          // No existing document: add a new one.
-          const docRef = await addDoc(collection(db, "allTimeRecords"), {
-            name: name,
-            score: score,
-            gameID: gameID,
-            dateAchieved: serverTimestamp()
-          });
-          console.log("Document written with ID: ", docRef.id);
-        } else {
-          // Document exists: update the first matching document.
-          const docRef = querySnapshot.docs[0].ref;
-          await updateDoc(docRef, {
-            score: score,
-            dateAchieved: serverTimestamp()
-          });
-          console.log("Document updated with ID: ", querySnapshot.docs[0].id);
-        }
-      } catch (error) {
-        console.error("Error adding/updating document: ", error);
-      }
+    const querySnapshot = await getDocs(q);
+
+    if (querySnapshot.empty) {
+      // No existing document: add a new one.
+      const docRef = await addDoc(collection(db, "allTimeRecords"), {
+        name: name,
+        score: numericScore, // now stored as a number
+        gameID: gameID,
+        dateAchieved: serverTimestamp()
+      });
+      console.log("Document written with ID: ", docRef.id);
+    } else {
+      // Document exists: update the first matching document.
+      const docRef = querySnapshot.docs[0].ref;
+      await updateDoc(docRef, {
+        score: numericScore, // update with numeric score
+        dateAchieved: serverTimestamp()
+      });
+      console.log("Document updated with ID: ", querySnapshot.docs[0].id);
     }
+  } catch (error) {
+    console.error("Error adding/updating document: ", error);
+  }
+}
+
 
 
 
