@@ -7,10 +7,14 @@ main:
     url: index.html
   - title: "571"
     url: 571.pdf
-  - title: "581"
-    url: 581.pdf
   - title: "482"
     url: 482.pdf
+  - title: "581"
+    url: 581.pdf
+  - title: "582"
+    url: 582.pdf
+  - title: "471"
+    url: 471.pdf
   - title: "קדם אנליזה"
     url: "PreAnalysis.pdf"
   - title: "מעגל יחידה PHET"
