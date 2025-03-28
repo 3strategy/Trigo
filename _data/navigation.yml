@@ -1,8 +1,8 @@
 main:
-  - title: "פרטי"
-    url: lessons.html
   - title: "טריגו"
     url: TrigoTrainer.html
+  - title: "פרטי"
+    url: lessons.html
   - title: "בית"
     url: index.html
   - title: "571"
@@ -35,9 +35,3 @@ main:
     url: "https://drive.google.com/drive/u/0/folders/1BZe9Ltng4NWlHQtV4o-_i4XQGxvgiGeh"
   - title: "לצוות ה6 שנתי"
     url: "https://saritsamuel2016.mozello.co.il/page-28/"
-
-"/cat1/":
-  - title: "עמוד1"
-    url: "/cat1/another-page.html"
-  - title: "עמוד2"
-    url: "/cat1/another-page2.html"

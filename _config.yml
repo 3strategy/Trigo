@@ -5,5 +5,3 @@ plugins:
 title: "מתמטיקה עם גיא"
 description: "אתר עזרי לימוד מתמטיקה של גיא"
 lang: he
-permalink: /:categories/:title/
-breadcrumbs: true
