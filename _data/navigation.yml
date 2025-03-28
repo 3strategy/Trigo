@@ -36,8 +36,7 @@ main:
   - title: "לצוות ה6 שנתי"
     url: "https://saritsamuel2016.mozello.co.il/page-28/"
 
-
-/:cat1/:cat1title/
+"/cat1/":
   - title: "עמוד1"
     url: "/cat1/another-page.html"
   - title: "עמוד2"
