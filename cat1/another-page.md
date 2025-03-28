@@ -1,7 +1,6 @@
 ---
 layout: default
 categories: [cat1]
-permalink: /:categories/:title/
 ---
 
 ## Welcome to another page

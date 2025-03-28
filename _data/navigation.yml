@@ -1,8 +1,8 @@
 main:
-  - title: "טריגו"
-    url: TrigoTrainer.html
   - title: "פרטי"
     url: lessons.html
+  - title: "טריגו"
+    url: TrigoTrainer.html
   - title: "בית"
     url: index.html
   - title: "571"
