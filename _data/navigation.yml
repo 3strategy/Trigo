@@ -37,3 +37,8 @@ main:
     url: "https://saritsamuel2016.mozello.co.il/page-28/"
 
 
+/:cat1/:cat1title/
+  - title: "עמוד1"
+    url: "/cat1/another-page.html"
+  - title: "עמוד2"
+    url: "/cat1/another-page2.html"
