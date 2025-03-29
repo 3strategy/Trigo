@@ -24,10 +24,10 @@ main:
   - title: "מבחנים יב 25"
     url: "#"
     children:
-    - title: "מבחן מסכם יב מרץ 25"
-      url: /testsYB25/yudBetMar25.pdf
-    - title: "מבחן מסכם יב - פתרון"
-      url: /testsYB25/yudBetMar25Sol.pdf
+      - title: "מבחן מסכם יב מרץ 25"
+        url: /testsYB25/yudBetMar25.pdf
+      - title: "מבחן מסכם יב - פתרון"
+        url: /testsYB25/yudBetMar25Sol.pdf
   - title: "אינדוקציה גבע"
     url: "InductionGeva.pdf"
   - title: "75 שאלות קצרות מאד"
