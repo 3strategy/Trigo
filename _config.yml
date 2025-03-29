@@ -7,3 +7,13 @@ description: "אתר עזרי לימוד מתמטיקה של גיא"
 lang: he
 header_pages: []
 header_dropdown: true
+
+# Default settings
+defaults:
+  # _pages
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: single
+      author_profile: true
