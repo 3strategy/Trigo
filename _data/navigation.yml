@@ -22,6 +22,7 @@ main:
   - title: "מעגל יחידה PHET"
     url: "TrigoPhet.html"
   - title: "מבחנים יב 25"
+    url: "#"
     children:
     - title: "מבחן מסכם יב מרץ 25"
       url: /testsYB25/yudBetMar25.pdf
