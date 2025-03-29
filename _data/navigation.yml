@@ -1,20 +1,6 @@
 main:
   - title: "טריגו"
     url: TrigoTrainer.html
-  - title: "מבחנים יב 25"
-    url: ""
-    children:
-      - title: "מבחן מסכם יב מרץ 25"
-        url: /testsYB25/yudBetMar25.pdf
-      - title: "מבחן מסכם יב - פתרון"
-        url: /testsYB25/yudBetMar25Sol.pdf
-  - title: "מבחנים יב 26"
-    url: ~
-    children:
-      - title: "מבחן מסכם יב מרץ 25"
-        url: /testsYB25/yudBetMar25.pdf
-      - title: "מבחן מסכם יב - פתרון"
-        url: /testsYB25/yudBetMar25Sol.pdf
   - title: "פרטי"
     url: lessons.html
   - title: "בית"
